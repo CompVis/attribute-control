@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description"
+    content="We reveal that certain directions in CLIP text embeddings permit detailed attribute control in text-to-image models.">
+  <meta property="og:title" content="Subject-Specific Concept Control" />
+  <meta property="og:description"
+    content="We reveal that certain directions in CLIP text embeddings permit detailed attribute control in text-to-image models." />
+  <meta property="og:url" content="https://compvis.github.io/attribute-control" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="/attribute-control/static/images/teaser.jpg" />
+  <!-- <meta property="og:image:width" content="1200"/> -->
+  <!-- <meta property="og:image:height" content="630"/> -->
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="600" />
+
+
+
+  <meta name="twitter:title" content="Subject-Specific Concept Control">
+  <meta name="twitter:description"
+    content="We reveal that certain directions in CLIP text embeddings permit detailed attribute control in text-to-image models.">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="/attribute-control/static/images/teaser.jpg">
+  <meta name="twitter:card"
+    content="We reveal that certain directions in CLIP text embeddings permit detailed attribute control in text-to-image models.">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="diffusion,control,subject-specific,image">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Subject-Specific Concept Control</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Continuous, Subject-Specific Attribute Control in T2I Models by
+              Identifying Semantic Directions</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://stefan-baumann.eu/" target="_blank">Stefan Andreas Baumann</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/felixmkrause/" target="_blank">Felix Krause</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/michaelneumayr/" target="_blank">Michael Neumayr</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://de.linkedin.com/in/nick-stracke" target="_blank">Nick Stracke</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://taohu.me/" target="_blank">Vincent Tao Hu</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://ommer-lab.com/people/ommer/" target="_blank">Björn Ommer</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <!-- <span class="author-block">Institution Name<br>Conferance name and year</span> -->
+              <span class="author-block"><br>CompVis @ LMU Munich, MCML<sup>1</sup></span>,
+              <span class="author-block">TU Munich<sup>2</sup></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- Supplementary PDF link -->
+                <!-- <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/CompVis/attribute-control" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <source src="static/videos/banner_video.mp4"
+        type="video/mp4">
+      </video> -->
+        <img src="static/images/teaser.jpg" alt="">
+        <h2 class="is-4 has-text-centered">
+          Our method augments the prompt input of image generation models with fine-grained control of attribute
+          expression in generated images in a subject-specific manner without additional cost during generation, while
+          previous methods only allow either fine-grained expression control or fine-grained localization.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              In recent years, advances in text-to-image (T2I) diffusion models have substantially elevated the quality
+              of their generated images. However, achieving fine-grained control over attributes remains a challenge due
+              to the limitations of natural language prompts (such as no continuous set of intermediate descriptions
+              existing between ``person'' and ``old person'').
+              Even though many methods were introduced that augment the model or generation process to enable such
+              control, methods that do not require a fixed reference image are limited to either enabling global
+              fine-grained attribute expression control or coarse attribute expression control localized to specific
+              subjects, not both simultaneously.
+              We show that there exist directions in the commonly used token-level CLIP text embeddings that enable
+              fine-grained subject-specific control of high-level attributes in text-to-image models. Based on this
+              observation, we introduce one efficient optimization-free and one robust optimization-based method to
+              identify these directions for specific attributes from contrastive text prompts. We demonstrate that these
+              directions can be used to augment the prompt text input with fine-grained control over attributes of
+              specific subjects in a compositional manner (control over multiple attributes of a single subject) without
+              having to adapt the diffusion model.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+  <!-- Image carousel -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title">Subject-Specific Concept Control</h2>
+        <h2 class="subtitle pt-4">The images below contain two subjects each. We vary one attribute for each
+          subject independently to showcase our subject specifc control When looking at one row or one column
+          independently, note how the specific attribute, e.g. age, of one person changes while it stays constant for
+          the other person.</h2>
+        <div class="">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/carousel1.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                We vary age for the man and the woman independently.
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/carousel2.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                We vary width for the man and the woman independently.
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/carousel3.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                We vary width for the man and the woman independently.
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/carousel4.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                We vary age for the man and the woman independently.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End image carousel -->
+
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+
+        <h2 class="title">Method</h2>
+
+        <div class="">
+          <img src="static/images/method.png" alt="">
+
+
+          <div class="content pt-4 is-size-5">
+            Our method is based on the following findings (see paper for in-depth analysis):
+            <ol>
+              <li>
+                Diffusion models are able to interpret modified prompt embeddings <b><i>e'</i></b> that do not
+                directly
+                correspond to a possible text prompt.
+              </li>
+              <li>
+                Fine-grained changes of a specific token embedding apply localized changes.
+              </li>
+              <li>
+                The space of token embeddings approximates a Euclidean space across similar anchor points, e.g. young
+                <->
+                  old for people. This enables us composable smooth local edits along fixed category-specific directions
+                  <b><i>∆e</i></b>
+              </li>
+            </ol>
+
+          </div>
+
+          <img src="static/images/manifold.png" alt="">
+
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title">Compositional Attribute Editing</h2>
+        <div class="is-size-5 pt-4">Our method allows the stacking and continuous modulation of multiple attributes for
+          the same subject</div>
+        <img src="static/images/composition.jpg" alt="">
+        <div class="">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/comp1.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Age and Price
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/comp2.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Age and Price
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/comp3.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Makeup and Age
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/comp4.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Makeup and Age
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/comp6.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Smile and Width
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/comp7.jpg" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Smile and Width
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Youtube video -->
+  <!-- <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Video Presentation</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+
+            <div class="publication-video">
+              <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!-- End youtube video -->
+
+
+  <!-- Video carousel -->
+  <!-- <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Another Carousel</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-video1">
+            <video poster="" id="video1" autoplay controls muted loop height="100%">
+              <source src="static/videos/carousel1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video2">
+            <video poster="" id="video2" autoplay controls muted loop height="100%">
+              <source src="static/videos/carousel2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" autoplay controls muted loop height="100%">\
+              <source src="static/videos/carousel3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!-- End video carousel -->
+
+
+
+
+
+
+  <!-- Paper poster -->
+  <!-- <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title">Poster</h2>
+
+        <iframe src="static/pdfs/sample.pdf" width="100%" height="550">
+        </iframe>
+
+      </div>
+    </div>
+  </section> -->
+  <!--End paper poster -->
+
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title">Continuous Attribute Modification</h2>
+        <div class="is-size-5 pt-4">We can scale our attribute deltas for a smooth interpolation between two anchors.
+        </div>
+        <div class="">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/smooth1.png" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Smoothly applied age slider in both the negative (young) and positive direction (old).
+              </h2>
+            </div>
+            <div class="item">
+              <!-- Your image here -->
+              <img src="static/images/smooth2.png" alt="MY ALT TEXT" />
+              <h2 class="subtitle has-text-centered">
+                Smoothly applied age slider in both the negative (young) and positive direction (old).
+              </h2>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+@misc{baumann2024attributecontrol,
+  title = {{C}ontinuous, {S}ubject-{S}pecific {A}ttribute {C}ontrol in {T2I} {M}odels by {I}dentifying {S}emantic {D}irections},
+  author = {Stefan Andreas Baumann and Felix Krause and Michael Neumayer and Nick Stracke and Tao Hu and Bj{\"o}rn Ommer},
+  year = {2024}
+}
+      </code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the of this website, we just ask that you link back to this page in the footer.
+              <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>

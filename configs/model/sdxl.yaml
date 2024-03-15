@@ -1,0 +1,6 @@
+_target_: attribute_control.model.SDXL
+pipeline_type: diffusers.StableDiffusionXLPipeline
+model_name: stabilityai/stable-diffusion-xl-base-1.0
+pipe_kwargs:
+  torch_dtype: ${locate:torch.bfloat16}
+device: ${device}

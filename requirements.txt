@@ -1,0 +1,12 @@
+accelerate
+diffusers>=0.25
+einops
+hydra-core
+jaxtyping
+matplotlib
+matplotlib
+numpy
+omegaconf
+Pillow
+torch>=2.1.0
+tqdm

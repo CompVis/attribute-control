@@ -1,0 +1,31 @@
+# @package _global_
+
+tag: 'people/age'
+
+prompts:
+- prompt_target: 'man'
+  prompt_positive: 'old man'
+  prompt_negative: 'young man'
+  pattern_target: 'man'
+- prompt_target: 'woman'
+  prompt_positive: 'old woman'
+  prompt_negative: 'young woman'
+  pattern_target: 'woman'
+- prompt_target: 'person'
+  prompt_positive: 'old person'
+  prompt_negative: 'young person'
+  pattern_target: 'person'
+- prompt_target: 'man'
+  prompt_positive: 'very old man'
+  prompt_negative: 'very young man'
+  pattern_target: 'man'
+- prompt_target: 'woman'
+  prompt_positive: 'very old woman'
+  prompt_negative: 'very young woman'
+  pattern_target: 'woman'
+- prompt_target: 'person'
+  prompt_positive: 'very old person'
+  prompt_negative: 'very young person'
+  pattern_target: 'person'
+
+prefixes: ${combinations:'{,a photo of,a portrait of,a painting of} a {,beautiful} {,asian,african-american,caucasian,white,arab,black,african,american,south-american,indian}'}
