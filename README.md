@@ -1,7 +1,7 @@
 # Fine-Grained Subject-Specific Attribute Expression Control in T2I Models
 
 [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://compvis.github.io/attribute-control/)
-[![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2403.17064)
+[![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/TODO)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CompVis/attribute-control/blob/main/notebooks/inference_sdxl_colab.ipynb)
 
 This repository contains an implementation of the paper "Continuous, Subject-Specific Attribute Control in T2I Models by Identifying Semantic Directions".
@@ -13,14 +13,24 @@ We identify meaningful directions in the tokenwise prompt embedding space that e
 
 ![teaser](./docs/static/images/teaser.png)
 
+## 📰 News
+- March 27, 2024: [Real Image Editing](https://github.com/CompVis/attribute-control/tree/main/notebooks/real_image_editing) demo added, thanks to @christianchartier for the suggestion!
+- March 26, 2024: Preprint and Code released! 🎉
+
 ## 🚀 Usage
 ### Setup
 Just clone the repo and install the requirements via `pip install -r requirements.txt`, then you're ready to go. For usage, see the examples below, everything else that's needed (model checkpoints) will be downloaded automatically.
 
 ### Inference
-For inference, just start with one of the notebook at `notebooks` for a minimal example.
+For inference, just start with one of the notebook at [`notebooks`](https://github.com/CompVis/attribute-control/tree/main/notebooks) or our [Colab Demo](https://colab.research.google.com/github/CompVis/attribute-control/blob/main/notebooks/inference_sdxl_colab.ipynb) for a minimal example.
 
-We provide a range of learned deltas for SDXL at `pretrained_deltas`. These can also be used for models such as SD 1.5 or LDM3D by just loading them as usual .
+We provide a range of learned deltas for SDXL at [`pretrained_deltas`](https://github.com/CompVis/attribute-control/tree/main/pretrained_deltas). These can also be used for models such as SD 1.5 or LDM3D by just loading them as usual.
+
+### Real Image Editing
+We also provide an example for real image editing at [`notebooks/real_image_editing`](https://github.com/CompVis/attribute-control/tree/main/notebooks/real_image_editing) based on [ReNoise](https://garibida.github.io/ReNoise-Inversion/) and [SDXL Turbo](https://stability.ai/news/stability-ai-sdxl-turbo).
+This allows you to do real image editing with our method, e.g. changing the age of a car in a fine-grained way:
+
+![car age editing example](./docs/static/images/sdxl_turbo_renoise_editing.png)
 
 ### Creating new Attribute Deltas
 When creating deltas for new attributes, start by creating a config for them akin to `configs/prompts/people/age.yaml`. There are multiple entries of base prompts that correspond to the attribute in a neutral, "negative", and "positive" direction. Please make sure to use the same noun for all the prompts per entry and specify it as the `pattern_target`.

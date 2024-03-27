@@ -211,12 +211,11 @@ class SD15(DiffusersSDModelBase):
             tokenwise_embedding_spans=token_spans,
         )
 
-    def _get_pipe_kwargs(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]], start_sample: Optional[torch.Tensor], **kwargs):
+    def _get_pipe_kwargs(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]] = None, start_sample: Optional[torch.Tensor] = None, **kwargs):
         return {
-            'latents': start_sample,
             'prompt_embeds': reduce_tensors_recursively(*[emb.tokenwise_embeddings[NAME_OPENAI_CLIP_VIT_L] for emb in embs], reduction_op=torch.stack),
             'negative_prompt_embeds': reduce_tensors_recursively(*[emb.tokenwise_embeddings[NAME_OPENAI_CLIP_VIT_L] for emb in embs_neg], reduction_op=torch.stack) if (not embs_neg is None) and not any(e is None for e in embs_neg) else None,
-        } | kwargs
+        } | ({ 'latents': start_sample } if not start_sample is None else { }) | kwargs
 
     def predict_eps(self, embs: List[PromptEmbedding], start_sample: Float[torch.Tensor, 'n c h w'], t_relative: Float[torch.Tensor, 'n']) -> Float[torch.Tensor, 'n c h w']:
         i_t = torch.round(t_relative * (self.num_inference_steps - 1)).to(torch.int64)
@@ -242,9 +241,8 @@ class SDXL(SD15):
             pooled_embeddings={ NAME_OPENAI_CLIP_VIT_L: pooled_prompt_embeds[0][:768], NAME_OPENCLIP_G: pooled_prompt_embeds[0][768:] },
         )
 
-    def _get_pipe_kwargs(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]], start_sample: Optional[torch.Tensor], **kwargs):
+    def _get_pipe_kwargs(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]] = None, start_sample: Optional[torch.Tensor] = None, **kwargs):
         return {
-            'latents': start_sample,
             'prompt_embeds': torch.cat([
                 reduce_tensors_recursively(*[emb.tokenwise_embeddings[NAME_OPENAI_CLIP_VIT_L] for emb in embs], reduction_op=torch.stack),
                 reduce_tensors_recursively(*[emb.tokenwise_embeddings[NAME_OPENCLIP_G] for emb in embs], reduction_op=torch.stack)
@@ -261,7 +259,7 @@ class SDXL(SD15):
                 reduce_tensors_recursively(*[emb.pooled_embeddings[NAME_OPENAI_CLIP_VIT_L] for emb in embs_neg], reduction_op=torch.stack),
                 reduce_tensors_recursively(*[emb.pooled_embeddings[NAME_OPENCLIP_G] for emb in embs_neg], reduction_op=torch.stack)
             ], dim=-1) if (not embs_neg is None) and not any(e is None for e in embs_neg) else None,
-        } | kwargs
+        } | ({ 'latents': start_sample } if not start_sample is None else { }) | kwargs
 
     def _compute_time_ids(self, device, weight_dtype) -> torch.Tensor:
         # Adapted from pipeline.StableDiffusionXLPipeline._get_add_time_ids
@@ -308,15 +306,14 @@ class StableCascade(DiffusersModelBase):
             pooled_embeddings={ NAME_OPENCLIP_G: pooled_prompt_embeds[0] },
         )
 
-    def _get_pipe_kwargs(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]], start_sample: Optional[torch.Tensor], **kwargs):
+    def _get_pipe_kwargs(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]] = None, start_sample: Optional[torch.Tensor] = None, **kwargs):
         return {
-            'latents': start_sample,
             'prompt_embeds': reduce_tensors_recursively(*[emb.tokenwise_embeddings[NAME_OPENCLIP_G] for emb in embs], reduction_op=torch.stack),
             'prompt_embeds_pooled': reduce_tensors_recursively(*[emb.pooled_embeddings[NAME_OPENCLIP_G] for emb in embs], reduction_op=torch.stack),
             'negative_prompt_embeds': reduce_tensors_recursively(*[emb.tokenwise_embeddings[NAME_OPENCLIP_G] for emb in embs_neg], reduction_op=torch.stack) if (not embs_neg is None) and not any(e is None for e in embs_neg) else None,
             'negative_prompt_embeds_pooled': reduce_tensors_recursively(*[emb.pooled_embeddings[NAME_OPENCLIP_G] for emb in embs_neg], reduction_op=torch.stack)
              if (not embs_neg is None) and not any(e is None for e in embs_neg) else None,
-        } | kwargs
+        } | ({ 'latents': start_sample } if not start_sample is None else { }) | kwargs
 
     @torch.no_grad
     def sample(self, embs: List[PromptEmbedding], embs_neg: Optional[List[PromptEmbedding]], start_sample: Optional[Float[torch.Tensor, 'n c h w']] = None, start_after_relative: float = 0., cutoff_after_relative: float = 1., **kwargs) -> Union[List[Image.Image], Any]:
