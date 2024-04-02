@@ -72,7 +72,7 @@ def main(cfg: DictConfig):
                     data_iter = iter(dataloader)
                     batch = next(data_iter)
                 prompts_embedded = { k: [model.embed_prompt(v) for v in vs] for k, vs in batch.items() if 'prompt' in k }
-                t_relative = torch.rand((batch_size,))
+                t_relative = torch.rand((batch_size,), device=cfg.device)
                 if batch_size != 1:
                     x_0 = model.sample(prompts_embedded['prompt_target'], embs_neg=None, guidance_scale=cfg.base_sample_settings.guidance_scale, output_type='latent')
                     x_t = model.get_x_t(x_0, torch.randn_like(x_0), t_relative)

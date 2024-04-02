@@ -4,6 +4,7 @@ from itertools import product
 
 from typing import Callable, Dict, List, Union, Tuple, Any, Optional
 import torch
+from jaxtyping import Float
 from omegaconf import OmegaConf
 
 
@@ -55,3 +56,10 @@ def getattr_recursive(obj: Any, path: str) -> Any:
         else:
             obj = getattr(obj, part)
     return obj
+
+
+def broadcast_trailing_dims(tensor: Float[torch.Tensor, '(c)'], reference: Float[torch.Tensor, '(c) ...']) -> torch.Tensor:
+    num_trailing = len(reference.shape) - len(tensor.shape)
+    for _ in range(num_trailing):
+        tensor = tensor.unsqueeze(-1)
+    return tensor

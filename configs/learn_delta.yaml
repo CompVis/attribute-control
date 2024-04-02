@@ -8,8 +8,8 @@ defaults:
 run_type: learn_delta
 
 max_steps: 1000
-batch_size: 2
-grad_accum_steps: 5
+batch_size: 1
+grad_accum_steps: 10
 scale_batch_size: 4
 scale_range: [.1, 5]
 randomize_scale_sign: true

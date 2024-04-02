@@ -13,7 +13,7 @@ from diffusers import DDIMScheduler
 from diffusers.pipelines.pipeline_utils import DiffusionPipeline
 from diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion import retrieve_timesteps
 
-from ..utils import reduce_tensors_recursively
+from ..utils import reduce_tensors_recursively, broadcast_trailing_dims
 from .. import PromptEmbedding, EmbeddingDelta
 
 
@@ -138,7 +138,7 @@ class DiffusersSDModelBase(DiffusersModelBase):
                 return set_timesteps_orig(num_inference_steps=num_inference_steps, device=device)
         self.pipe.scheduler.set_timesteps = set_timesteps_custom
 
-        self.num_inference_steps = num_inference_steps # self.pipe.scheduler.num_inference_steps
+        self.num_inference_steps = num_inference_steps
 
     @abstractmethod
     def _get_pipe_kwargs(self, embs: List[PromptEmbedding], start_sample: Optional[Float[torch.Tensor, 'n c h w']], **kwargs):
@@ -158,7 +158,7 @@ class DiffusersSDModelBase(DiffusersModelBase):
         return self.sample(embs=embs, embs_neg=embs_neg, start_sample=intermediate, **kwargs, start_after_relative=delay_relative)
 
     def _get_eps_pred(self, t: Integer[torch.Tensor, 'n'], sample: Float[torch.Tensor, 'n ...'], model_output: Float[torch.Tensor, 'n ...']) -> Float[torch.Tensor, 'n ...']:
-        alpha_prod_t = self.pipe.scheduler.alphas_cumprod[t]
+        alpha_prod_t = broadcast_trailing_dims(self.pipe.scheduler.alphas_cumprod[t.to(self.pipe.scheduler.alphas_cumprod.device)].to(model_output.device), model_output)
         beta_prod_t = 1 - alpha_prod_t
         if self.pipe.scheduler.config.prediction_type == "epsilon":
             return (sample - beta_prod_t ** (0.5) * model_output) / alpha_prod_t ** (0.5)
@@ -273,7 +273,8 @@ class SDXL(SD15):
 
     def predict_eps(self, embs: List[PromptEmbedding], start_sample: Float[torch.Tensor, 'n c h w'], t_relative: Float[torch.Tensor, 'n']) -> Float[torch.Tensor, 'n c h w']:
         i_t = torch.round(t_relative * (self.num_inference_steps - 1)).to(torch.int64)
-        t = self.pipe.scheduler.timesteps[i_t.to(self.pipe.scheduler.timesteps.device)]
+        self.pipe.scheduler.set_timesteps(self.num_inference_steps)
+        t = self.pipe.scheduler.timesteps[i_t.to(self.pipe.scheduler.timesteps.device)].to(start_sample.device)
 
         p_embs = self._get_pipe_kwargs(embs, embs_neg=None, start_sample=None)
         add_time_ids = self._compute_time_ids(start_sample.device, start_sample.dtype)
