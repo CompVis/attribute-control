@@ -1,7 +1,7 @@
 # Fine-Grained Subject-Specific Attribute Expression Control in T2I Models
 
 [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://compvis.github.io/attribute-control/)
-[![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/TODO)
+[![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2403.17064)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CompVis/attribute-control/blob/main/notebooks/inference_sdxl_colab.ipynb)
 
 This repository contains an implementation of the paper "Continuous, Subject-Specific Attribute Control in T2I Models by Identifying Semantic Directions".
