@@ -107,7 +107,7 @@ def main(cfg: DictConfig):
             checkpoint_path = ckpt_output_dir / f'delta_step_{global_step + 1}.pt'
             checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
             torch.save({
-                'delta': delta.cpu().state_dict(),
+                'delta': delta.state_dict(),
             }, checkpoint_path)
             logger.info(f'Saved intermediate checkpoint to {checkpoint_path}.')
 
