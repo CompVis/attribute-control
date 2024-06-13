@@ -47,6 +47,12 @@ python learn_delta.py device=cuda:0 model=sdxl prompts=people/age
 ```
 This will save the delta at `outputs/learn_delta/people/age/runs/<date>/<time>/checkpoints/delta.pt`, which you can then directly use as shown in the example notebooks.
 
+This will typically require slightly more than 24GB of VRAM for training (26GB when training on an A100 as of June 13th 2024, although this will likely change with newer versions of diffusers and PyTorch). If you want to train on smaller hardware, you can enable gradient checkpointing (typically called activation checkpointing, but we'll stick to diffusers terminology here) by launching the training as
+```shell
+python learn_delta.py device=cuda:0 model=sdxl prompts=people/age model.compile=False +model.gradient_checkpointing=True
+```
+In our experiments, this enabled training deltas with a 11.5GB VRAM budget, at the cost of slower training.
+
 #### Naive CLIP Difference Method
 The simplest method to obtain deltas is the naive CLIP difference-based method. With it, you can obtain a delta in a few seconds on a decent GPU. It is substantially worse than the proper learned method though.
 

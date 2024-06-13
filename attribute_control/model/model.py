@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod, abstractproperty
 from typing import Union, Tuple, Dict, Optional, List, Any
 from pydoc import locate
+import warnings
 
 import torch
 from torch import nn
@@ -183,6 +184,7 @@ class SD15(DiffusersSDModelBase):
         pipe_kwargs: dict = { },
         device: Union[str, torch.device] = 'cuda:0',
         compile: bool = False,
+        gradient_checkpointing: bool = False,
     ) -> None:
         super().__init__(pipeline_type=pipeline_type, model_name=model_name, num_inference_steps=num_inference_steps, pipe_kwargs=pipe_kwargs, device=device, compile=compile)
 
@@ -191,6 +193,10 @@ class SD15(DiffusersSDModelBase):
         d_v_major, d_v_minor, *_ = diffusers.__version__.split('.')
         if int(d_v_major) > 0 or int(d_v_minor) >= 25:
             self.pipe.fuse_qkv_projections()
+        if gradient_checkpointing:
+            if compile:
+                warnings.warn('Gradient checkpointing is typically not compatible with compiling the U-Net. This will likely lead to a crash.')
+            self.pipe.unet.enable_gradient_checkpointing()
         if compile:
             assert int(d_v_major) > 0 or int(d_v_minor) >= 25, 'Use at least diffusers==0.25 to enable proper functionality of torch.compile().'
             self.pipe.unet.to(memory_format=torch.channels_last)
