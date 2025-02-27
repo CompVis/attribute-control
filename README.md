@@ -5,7 +5,7 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CompVis/attribute-control/blob/main/notebooks/inference_sdxl_colab.ipynb)
 [![Replicate Demo](https://img.shields.io/badge/Replicate-Demo%20&%20API%20by%20camenduru-blue)](https://replicate.com/camenduru/attribute-control)
 
-[Stefan Andreas Baumann](https://stefan-baumann.eu/), [Felix Krause](https://www.linkedin.com/in/felixmkrause/), [Michael Neumayr](https://www.linkedin.com/in/michaelneumayr/), [Nick Stracke](https://de.linkedin.com/in/nick-stracke), [Melvin Sevi](https://melvinsevi.github.io/), [Vincent Tao Hu](https://taohu.me/), [Björn Ommer](https://ommer-lab.com/people/ommer/)\
+[Stefan Andreas Baumann](https://stefan-baumann.eu/), [Felix Krause](https://www.linkedin.com/in/felixmkrause/), [Michael Neumayr](https://michaelnoi.github.io/), [Nick Stracke](https://de.linkedin.com/in/nick-stracke), [Melvin Sevi](https://melvinsevi.github.io/), [Vincent Tao Hu](https://taohu.me/), [Björn Ommer](https://ommer-lab.com/people/ommer/)\
 **CVPR 2025**
 
 This repository contains an implementation of the paper "Continuous, Subject-Specific Attribute Control in T2I Models by Identifying Semantic Directions".
