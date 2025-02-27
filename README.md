@@ -1,13 +1,14 @@
-# Fine-Grained Subject-Specific Attribute Expression Control in T2I Models
+# Continuous, Subject-Specific Attribute Control in T2I Models by Identifying Semantic Directions
 
 [![Project Page](https://img.shields.io/badge/Project-Page-blue)](https://compvis.github.io/attribute-control/)
 [![Paper](https://img.shields.io/badge/arXiv-PDF-b31b1b)](https://arxiv.org/abs/2403.17064)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CompVis/attribute-control/blob/main/notebooks/inference_sdxl_colab.ipynb)
 [![Replicate Demo](https://img.shields.io/badge/Replicate-Demo%20&%20API%20by%20camenduru-blue)](https://replicate.com/camenduru/attribute-control)
 
-This repository contains an implementation of the paper "Continuous, Subject-Specific Attribute Control in T2I Models by Identifying Semantic Directions".
+[Stefan Andreas Baumann](https://stefan-baumann.eu/), [Felix Krause](https://www.linkedin.com/in/felixmkrause/), [Michael Neumayr](https://www.linkedin.com/in/michaelneumayr/), [Nick Stracke](https://de.linkedin.com/in/nick-stracke), [Melvin Sevi](https://melvinsevi.github.io/), [Vincent Tao Hu](https://taohu.me/), [Björn Ommer](https://ommer-lab.com/people/ommer/)\
+**CVPR 2025**
 
-[Stefan Andreas Baumann](https://stefan-baumann.eu/), [Felix Krause](https://www.linkedin.com/in/felixmkrause/), [Michael Neumayr](https://www.linkedin.com/in/michaelneumayr/), [Nick Stracke](https://de.linkedin.com/in/nick-stracke), [Vincent Tao Hu](https://taohu.me/), [Björn Ommer](https://ommer-lab.com/people/ommer/)
+This repository contains an implementation of the paper "Continuous, Subject-Specific Attribute Control in T2I Models by Identifying Semantic Directions".
 
 We present a simple, straight-forward method for enabling fine-grained control over attribute expression in T2I (diffusion) models in a subject-specific manner.
 We identify meaningful directions in the tokenwise prompt embedding space that enable modulating single attributes for specific subjects without adapting the T2I model.
@@ -76,12 +77,10 @@ We also welcome external contributions! Additionally, if you build something coo
 If you use this codebase or otherwise found our work valuable, please cite our paper:
 
 ```bibtex
-@misc{baumann2024attributecontrol,
-  title={{C}ontinuous, {S}ubject-{S}pecific {A}ttribute {C}ontrol in {T}2{I} {M}odels by {I}dentifying {S}emantic {D}irections},
-  author={Stefan Andreas Baumann and Felix Krause and Michael Neumayr and Nick Stracke and Vincent Tao Hu and Bj{\"o}rn Ommer},
-  year={2024},
-  eprint={2403.17064},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV}
+@inproceedings{baumann2025attributecontrol,
+    title={{C}ontinuous, {S}ubject-{S}pecific {A}ttribute {C}ontrol in {T}2{I} {M}odels by {I}dentifying {S}emantic {D}irections},
+    author={Stefan Andreas Baumann and Felix Krause and Michael Neumayr and Nick Stracke and Melvin Sevi and Vincent Tao Hu and Bj{\"o}rn Ommer},
+    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    year={2025}
 }
 ```
